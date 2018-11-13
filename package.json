@@ -1,0 +1,25 @@
+{
+  "name": "node-red-contrib-trello-api",
+  "version": "1.0.0",
+  "description": "A set of IO nodes for trello api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "JSONStream": "^1.0.7",
+    "event-stream": "^3.3.2",
+    "node-trello": "^1.1.2"
+  },
+  "keywords": [
+    "node-red"
+  ],
+  "node-red": {
+    "nodes": {
+      "trelloCredentials": "trelloCredentials/trello-credentials.js",
+      "trelloGetNewCard": "trelloGetNewCard/trello-get-new-card.js"
+    }
+  },
+  "author": "Sean Borg",
+  "license": "ISC"
+}
