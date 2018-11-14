@@ -11,6 +11,6 @@ so I am very open to any suggestions or help and it will be greatly appreciated.
 
 
 
-###Current plans to implement
+### Current plans to implement
 * A function node to detect a card moving between lists.
 * Also taking suggestions on other nodes.
