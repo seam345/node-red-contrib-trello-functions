@@ -41,6 +41,7 @@ module.exports = function (RED) {
         }
       }
 
+
       if (lastFetched) {
         var triggeredString = new Date().toString();
         if (listId) {
