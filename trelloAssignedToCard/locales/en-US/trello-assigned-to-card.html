@@ -1,0 +1,20 @@
+<script type="text/x-red" data-help-name="trelloAssignedToCard">
+    <p>Assigned to Trello card retrieves any card that the user has been assigned to since it was last called. </br>This will ouput a payload for every
+    card the user has been assigned to in the eg assigned to 5 cards = 5 msg.payload</p>
+
+      <h3>Output</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a></dd>
+      </dl>
+      <h3>Properties</h3>
+      <dl class="message-properties">
+          <dt>Credentials <span class="property-type">Required</span></dt>
+          <dd>Trello credentials</dd>
+          <dt>Board ID <span class="property-type">Optional</span></dt>
+          <dd>This will narrow the activation of node to only output cards created in the board provided</dd>
+          <dt>List ID <span class="property-type">Optional</span></dt>
+          <dd>This will narrow the activation of node to only output cards created in the list provided</dd>
+      </dl>
+    <p>
+</script>
