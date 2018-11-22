@@ -32,7 +32,7 @@ module.exports = function (RED) {
           }
         }
         nodeContext.set('lastFetched', triggeredDate.toString()); // Set to triggered time so we can be sure not to miss any
-        node.status({fill:"green",shape:"dot",text:triggeredDate.toISOString().substring(0,19)});
+        node.status({fill: "green", shape: "dot", text: triggeredDate.toISOString().substring(0, 19)});
       }
 
       if (!lastFetched) {

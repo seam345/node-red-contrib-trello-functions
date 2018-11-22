@@ -4,7 +4,7 @@
       "selectBoardID": "Board ID",
       "selectListID": "List ID"
     },
-    "hint":{
+    "hint": {
       "noTrelloCredentials": "Please select Trello credentials first",
       "boardListLoading": "Loading Boards...",
       "boardListUnselected": "Select a Board to narrow results",

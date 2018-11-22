@@ -38,8 +38,9 @@
               containerFirst.appendTo(listList);
 
               $.get(url, function (data, status) {
-                var selectList = $("#node-input-idList");var selectList = $("#node-input-idList");
-                                selectList.empty();
+                var selectList = $("#node-input-idList");
+                var selectList = $("#node-input-idList");
+                selectList.empty();
                 selectList.empty();
                 var containerFirst = $('<option/>', {class: "node-input-option-node", value: ''});
                 var text = $('<span>', {class: "node-input-option-text"}).text(originalContext._("trelloGetNewCard.hint.listListUnselected"));
@@ -152,6 +153,8 @@
       <select id="node-input-idList" >
       </select>
     </div>
+
+
 
 
 </script>

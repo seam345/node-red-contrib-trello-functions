@@ -1,11 +1,11 @@
 {
   "trelloAssignedToCard": {
     "label": {
-      "nodeName":"Assigned to Trello card",
+      "nodeName": "Assigned to Trello card",
       "selectBoardID": "Board ID",
       "selectListID": "List ID"
     },
-    "hint":{
+    "hint": {
       "noTrelloCredentials": "Please select Trello credentials first",
       "boardListLoading": "Loading Boards...",
       "boardListUnselected": "Select a Board to narrow results",
