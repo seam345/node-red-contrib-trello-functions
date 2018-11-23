@@ -37,11 +37,11 @@ module.exports = function (RED) {
                   if (listId === cardData[i].idList) {
                     node.send({payload: cardData[i]});
                   }
-                } else { // there is no list id send out card payload for all newly assigned cards on board
+                } else { // there is no list id, send out card payload for all newly assigned cards on board
                   node.send({payload: cardData[i]});
                 }
               }
-            } else { // There is no board id send out card payload for all newly assigned cards
+            } else { // There is no board id, send out card payload for all newly assigned cards
               node.send({payload: cardData[i]});
             }
           }
@@ -55,9 +55,6 @@ module.exports = function (RED) {
 
       if (!previousIdSet) {
         // todo add ability to have a predefined set
-        // if (msg.payload.initialTimeStamp) {
-        //   lastFetched = msg.payload.initialTimeStamp; // todo output message that it used the initial time stamp
-        // }
       }
 
 
@@ -90,6 +87,3 @@ module.exports = function (RED) {
 
   RED.nodes.registerType('trelloAssignedToCard', trelloAssignedToCardNode);
 };
-
-
-//https://api.trello.com/1/members/me/cards?key=a0c4805135ee954b034738d8d4cf5444&token=3e3ce282fc266472ba5a9358e4b8f531a4e531de920b7dc1c26ea071d851fbb3'

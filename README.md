@@ -7,10 +7,20 @@ As this is my first project I am a little unsure where to take this,
 so I am very open to any suggestions or help and it will be greatly appreciated.
 
 
+## Current nodes 
+
+* ### New Trello card
+
+Outputs a trello card as msg.payload for every new card added to Trello between 
+the previous and current activation of the node.
+
+* ### Assigned to Trello card
+
+Outputs a trello card as msg.payload for every card the Trello user is assigned to between 
+the previous and current activation of the node.
 
 
 
-
-### Current plans to implement
+## Current plans to implement
 * A function node to detect a card moving between lists.
 * Also taking suggestions on other nodes.
