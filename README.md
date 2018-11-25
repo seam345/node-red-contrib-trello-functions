@@ -11,14 +11,18 @@ so I am very open to any suggestions or help and it will be greatly appreciated.
 
 * ### New Trello card
 
-Outputs a trello card as msg.payload for every new card added to Trello between 
+Outputs a Trello card as msg.payload for every new card added to Trello between 
 the previous and current activation of the node.
 
 * ### Assigned to Trello card
 
-Outputs a trello card as msg.payload for every card the Trello user is assigned to between 
+Outputs a Trello card as msg.payload for every card the Trello user is assigned to between 
 the previous and current activation of the node.
 
+* ### Moved Trello card
+
+Outputs a Trello card as msg.payload for every card moved between Trello list between 
+the previous and current activation of the node.
 
 
 ## Current plans to implement
