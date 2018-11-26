@@ -19,7 +19,7 @@ the previous and current activation of the node.
 Outputs a Trello card as msg.payload for every card the Trello user is assigned to between 
 the previous and current activation of the node.
 
-* ### Moved Trello card
+* ### Get card moved lists
 
 Outputs a Trello card as msg.payload for every card moved between Trello list between 
 the previous and current activation of the node.
