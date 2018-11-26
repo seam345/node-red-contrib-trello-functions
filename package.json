@@ -18,7 +18,7 @@
     "nodes": {
       "trelloCredentials": "trelloCredentials/trello-credentials.js",
       "trelloGetNewCard": "trelloGetNewCard/trello-get-new-card.js",
-      "trelloGetMovedCard": "trelloGetMovedCard/trello-get-moved-card.js",
+      "trelloGetCardMovedLists": "trelloGetCardMovedLists/trello-get-card-moved-lists.js",
       "trelloAssignedToCard": "trelloAssignedToCard/trello-assigned-to-card.js"
     }
   },

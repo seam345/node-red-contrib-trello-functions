@@ -1,0 +1,121 @@
+<script type="text/javascript">
+
+  RED.nodes.registerType('trelloGetCardMovedLists', {
+    category: 'function',
+    color: '#8BBDD9',
+    defaults: {
+      trello: {value: '', required: true, type: 'trelloCredentials'},
+      idList: {value: '', required: false},
+      idBoard: {value: '', required: false}
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "trello.png",
+    label: function () {
+      return this.name || this._('trelloGetCardMovedLists.nodeName');
+    },
+    paletteLabel: function () {
+      return this.name || this._('trelloGetCardMovedLists.nodeName');
+    },
+    oneditprepare: function () {
+      const originalContext = this;
+
+      function hooks(originalContext, trelloID) {
+        let credentialNode;
+        if (trelloID) {
+          credentialNode = RED.nodes.node(trelloID);
+        } else {
+          credentialNode = RED.nodes.node(originalContext.trello);
+        }
+
+        if (credentialNode) {
+          if (credentialNode.apikey && credentialNode.token) {
+            const url = 'https://api.trello.com/1/members/me/boards?key=' + credentialNode.apikey + '&token=' + credentialNode.token;
+            const boardList = $("#node-input-idBoard");
+            boardList.empty();
+
+
+            if (originalContext.idBoard) { // Just in case it is unable to load boards it will still display the ID from memory
+              const selectList = $("#node-input-idBoard");
+              selectList.empty();
+              const containerID = $('<option/>', {class: "node-input-option-node", value: originalContext.idBoard});
+              const textID = $('<span>', {class: "node-input-option-text"}).text(originalContext.idBoard);
+              textID.appendTo(containerID);
+              containerID.appendTo(selectList);
+            }
+            const containerFirst = $('<option/>', {class: "node-input-option-node", value: ''});
+            const text = $('<span>', {class: "node-input-option-text"}).text(originalContext._("trelloGetCardMovedLists.hint.boardListLoading"));
+            text.appendTo(containerFirst);
+            containerFirst.appendTo(boardList);
+
+
+            $.get(url, function (data, status) {
+              const boardListInsideGet = $("#node-input-idBoard");
+              boardListInsideGet.empty();
+              const containerFirst = $('<option/>', {class: "node-input-option-node", value: ''});
+              const text = $('<span>', {class: "node-input-option-text"}).text(originalContext._("trelloGetCardMovedLists.hint.boardListUnselected"));
+              text.appendTo(containerFirst);
+              containerFirst.appendTo(boardListInsideGet);
+
+              for (let i = 0; i < data.length; i++) {
+                let container = $('<option/>', {class: "node-input-option-node", value: data[i].id});
+
+                if (originalContext.idBoard === data[i].id) {
+                  container = $('<option/>', {class: "node-input-option-node", selected: "selected", value: data[i].id});
+                }
+                const textName = $('<span>', {class: "node-input-option-text"}).text(data[i].name + ": ");
+                const textID = $('<span>', {class: "node-input-option-text"}).text(data[i].id); // for some reason can't change the colour but it would be nice to make it a lighter colour then the name
+
+                textID.appendTo(textName);
+                textName.appendTo(container);
+                container.appendTo(boardListInsideGet);
+              }
+            });
+
+
+          }
+        } else {
+          const boardList = $("#node-input-idBoard");
+          boardList.empty();
+          const container = $('<option/>', {class: "node-input-option-node", value: ''});
+          const text = $('<span>', {class: "node-input-option-text"})
+              .text(originalContext._("trelloGetCardMovedLists.hint.noTrelloCredentials"));
+          text.appendTo(container);
+          container.appendTo(boardList);
+
+        }
+      }
+
+
+      $("#node-input-trello").change(function (e) {
+        const trelloID = $(this).val();
+        hooks(originalContext, trelloID);
+      });
+
+      if (this.idBoard) {
+        const selectList = $("#node-input-idBoard");
+        selectList.empty();
+        const container = $('<option/>', {class: "node-input-option-node", value: this.idBoard});
+        const textID = $('<span>', {class: "node-input-option-text"}).text(this.idBoard);
+        textID.appendTo(container);
+        container.appendTo(selectList);
+      }
+
+      hooks(originalContext);
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="trelloGetCardMovedLists">
+    <div class="form-row">
+      <label for="node-input-trello" data-i18n="trelloGetCardMovedLists.label.trelloCredentials"></label>
+      <input id="node-input-trello"></input>
+    </div>
+    <div class="form-row">
+      <label for="node-input-idBoard" data-i18n="trelloGetCardMovedLists.label.selectBoardID"></label>
+      <select id="node-input-idBoard" ><!--I shall be dynamically filling this-->
+      </select>
+    </div>
+
+</script>
+

@@ -1,6 +1,6 @@
-<script type="text/x-red" data-help-name="trelloGetMovedCard">
-    <p>Get new Trello card retrieves any card created since it was last called. </br>This will ouput a payload for every
-    new card eg 5 new cards 5 msg.payload</p>
+<script type="text/x-red" data-help-name="trelloGetCardMovedLists">
+    <p>Get Trello card moved lists retrieves any card that has moved lists since it was last called. </br>This will ouput a payload for every
+    card moved eg 5 moved cards 5 msg.payload</p>
 
       <h3>Output</h3>
       <dl class="message-properties">
@@ -11,8 +11,9 @@
       <dl class="message-properties">
         <dt>payload.initialTimeStamp <span class="property-type">number</span></dt>
         <dd>A optional time stamp parsible by "new Date()",
-          any card made after this timestamp will be ouputed on the initial run.</br>
-          <b>Note</b>: if for any reason the node loses its context variable, the next run will reuse this variable as a start time potentially causing unwanted duplication  </dd>
+          any card moved after this timestamp will be ouputed on the initial run.</br>
+          <b>Note</b>: if for any reason the node loses its context variable, the next run will reuse this variable as a start time potentially causing unwanted duplication.
+          This will generate a warning log when the node uses this input </dd>
       </dl>
       <h3>Properties</h3>
       <dl class="message-properties">
@@ -20,8 +21,6 @@
           <dd>Trello credentials</dd>
           <dt>Board ID <span class="property-type">Optional</span></dt>
           <dd>This will narrow the activation of node to only output cards created in the board provided</dd>
-          <dt>List ID <span class="property-type">Optional</span></dt>
-          <dd>This will narrow the activation of node to only output cards created in the list provided</dd>
       </dl>
 
     <p>
