@@ -26,5 +26,4 @@ the previous and current activation of the node.
 
 
 ## Current plans to implement
-* A function node to detect a card moving between lists.
-* Also taking suggestions on other nodes.
+* Currently taking suggestions on other nodes.
