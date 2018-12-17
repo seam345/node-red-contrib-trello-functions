@@ -1,5 +1,6 @@
 {
   "trelloGetNewCard": {
+    "nodeName": "get new card",
     "label": {
       "selectBoardID": "Board ID",
       "selectListID": "List ID"
