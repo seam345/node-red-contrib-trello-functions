@@ -3,7 +3,8 @@
     "nodeName": "get new card",
     "label": {
       "selectBoardID": "Board ID",
-      "selectListID": "List ID"
+      "selectListID": "List ID",
+      "excludeUserBoolean": "Exclude self created"
     },
     "hint": {
       "noTrelloCredentials": "Please select Trello credentials first",
