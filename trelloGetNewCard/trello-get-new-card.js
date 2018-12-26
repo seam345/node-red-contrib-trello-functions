@@ -159,7 +159,7 @@ module.exports = function (RED) {
             if (actionData[i].type === 'createCard') {
               // Bellow will test if excludeSelfCreated is set, if it wasn't it will just continue, if it was it will
               // check that the user that created the card is not the user who's linked to (owns) the API key
-              if (!excludeSelfCreated || !actionData[i].idMemberCreator === trelloCurrentUserID) {
+              if (!excludeSelfCreated || !(actionData[i].idMemberCreator === trelloCurrentUserID)) {
                 trello.get('/1/cards/' + actionData[i].data.card.id, (err, data) => {
                       if (err) {
                         node.error(err)
