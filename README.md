@@ -26,4 +26,5 @@ the previous and current activation of the node.
 
 
 ## Current plans to implement
+* Create a moved to list node to fire whenever a card is moved to a particular list
 * Currently taking suggestions on other nodes.
