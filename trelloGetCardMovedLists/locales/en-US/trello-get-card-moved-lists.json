@@ -3,7 +3,8 @@
     "nodeName": "Get card moved lists",
     "label": {
       "selectBoardID": "Board ID",
-      "trelloCredentials": "Trello"
+      "trelloCredentials": "Trello",
+      "name": "Name"
     },
     "hint": {
       "noTrelloCredentials": "Please select Trello credentials first",

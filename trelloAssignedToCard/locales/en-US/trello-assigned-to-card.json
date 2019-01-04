@@ -3,7 +3,8 @@
     "label": {
       "nodeName": "Assigned to Trello card",
       "selectBoardID": "Board ID",
-      "selectListID": "List ID"
+      "selectListID": "List ID",
+      "name": "Name"
     },
     "hint": {
       "noTrelloCredentials": "Please select Trello credentials first",

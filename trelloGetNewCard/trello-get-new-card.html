@@ -7,7 +7,8 @@
       trello: {value: '', required: true, type: 'trelloCredentials'},
       idList: {value: '', required: false},
       idBoard: {value: '', required: false},
-      excludeUser: {value:false, required: true}
+      excludeUser: {value:false, required: true},
+      name:{value:'', required: false}
     },
     inputs: 1,
     outputs: 1,
@@ -183,8 +184,9 @@
       <label for="node-input-excludeUser" data-i18n="trelloGetNewCard.label.excludeUserBoolean"></label>
       <input id="node-input-excludeUser" type="checkbox"></input>
     </div>
-
-
-
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="trelloGetNewCard.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]trelloGetNewCard.label.name">
+    </div>
 
 </script>
