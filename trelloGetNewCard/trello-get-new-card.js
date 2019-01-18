@@ -12,8 +12,7 @@ module.exports = function (RED) {
 
 
     this.on('input', function (msg) {
-      //################################################################################################################
-      // Initialise all variables
+      //<editor-fold desc="Initialise all variables">
       const trelloCurrentUserIDSaveString = 'trelloUID';
       const lastFetchedSaveString = 'lastFetched';
       const boardFetchesSaveString = 'boardFetches';
@@ -50,10 +49,10 @@ module.exports = function (RED) {
           node.warn('Used initialTimeStamp input to set the starting point. This could cause some duplication.');
         }
       }
-
-      //################################################################################################################
+      //</editor-fold>
 
       // pre check that we have the current user ID associated with the api key, if not we shall go fetch it.
+      // TODO I may want to set a flag if the credentials have changed as that would change the user
       function getTrelloCurrentUID() {
         if (trelloCurrentUserID) {
           main();
@@ -74,8 +73,6 @@ module.exports = function (RED) {
       function main() {
         const triggeredDate = new Date();
         if (lastFetchedISO) {
-
-
           if (listId) {
             trello.get('/1/lists/' + listId + '/actions', {since: lastFetchedISO, before: triggeredDate.toISOString()},
                 (err, data) => {

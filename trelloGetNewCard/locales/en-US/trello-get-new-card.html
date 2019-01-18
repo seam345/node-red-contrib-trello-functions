@@ -1,5 +1,5 @@
 <script type="text/x-red" data-help-name="trelloGetNewCard">
-    <p>Get new Trello card retrieves any card created since it was last called. </br>This will ouput a payload for every
+    <p>Get new Trello card retrieves any card created since it was last called. </br>This will output a payload for every
     new card eg 5 new cards 5 msg.payload</p>
 
       <h3>Output</h3>
@@ -10,8 +10,8 @@
       <h3>Input</h3>
       <dl class="message-properties">
         <dt>payload.initialTimeStamp <span class="property-type">number</span></dt>
-        <dd>A optional time stamp parsible by "new Date()",
-          any card made after this timestamp will be ouputed on the initial run.</br>
+        <dd>A optional time stamp parsable by "new Date()",
+          any card made after this timestamp will be outputed on the initial run.</br>
           <b>Note</b>: if for any reason the node loses its context variable, the next run will reuse this variable as a
            start time potentially causing unwanted duplication. Every deployment will clear the context variables.</dd>
       </dl>
@@ -28,6 +28,4 @@
       </dl>
 
     <p>
-
-
 </script>
