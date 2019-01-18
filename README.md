@@ -11,20 +11,29 @@ so I am very open to any suggestions or help and it will be greatly appreciated.
 
 * ### New Trello card
 
-Outputs a Trello card as msg.payload for every new card added to Trello between 
-the previous and current activation of the node.
+Outputs a Trello card for every new card added  as msg.payload.
+
+Output is time bounded between the previous and current activation.
 
 * ### Assigned to Trello card
 
-Outputs a Trello card as msg.payload for every card the Trello user is assigned to between 
-the previous and current activation of the node.
+Outputs a Trello card for every card the Trello user is assigned to as msg.payload.
+
+Output is time bounded between the previous and current activation.
 
 * ### Get card moved lists
 
-Outputs a Trello card as msg.payload for every card moved between Trello list between 
-the previous and current activation of the node.
+Outputs a Trello card that has moved Trello list as msg.payload.
+
+Output is time bounded between the previous and current activation.
+
+### Exclude self
+
+All nodes have a boolean option to exclude any actions performed by the owner of 
+the API key.
 
 
 ## Current plans to implement
 * Create a moved to list node to fire whenever a card is moved to a particular list
+* Considering changing the nodes from function nodes to output nodes
 * Currently taking suggestions on other nodes.
