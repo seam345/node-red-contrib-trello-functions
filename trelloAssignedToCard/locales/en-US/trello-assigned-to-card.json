@@ -4,6 +4,7 @@
       "nodeName": "Assigned to Trello card",
       "selectBoardID": "Board ID",
       "selectListID": "List ID",
+      "excludeUserBoolean": "Exclude self created",
       "name": "Name"
     },
     "hint": {

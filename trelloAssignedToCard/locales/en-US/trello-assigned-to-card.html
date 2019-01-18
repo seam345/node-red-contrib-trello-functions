@@ -1,5 +1,5 @@
 <script type="text/x-red" data-help-name="trelloAssignedToCard">
-    <p>Assigned to Trello card retrieves any card that the user has been assigned to since it was last called. </br>This will ouput a payload for every
+    <p>Assigned to Trello card retrieves any card that the user has been assigned to since it was last called. </br>This will output a payload for every
     card the user has been assigned to eg assigned to 5 cards = 5 msg.payload</p>
 
       <h3>Output</h3>
@@ -15,6 +15,8 @@
           <dd>This will narrow the activation of node to only output cards created in the board provided</dd>
           <dt>List ID <span class="property-type">Optional</span></dt>
           <dd>This will narrow the activation of node to only output cards created in the list provided</dd>
+          <dt>Exclude self created <span class="property-type">Required</span></dt>
+          <dd>If ticked the node will exclude actions created by the owner of the API key.</dd>
       </dl>
     <p>
 
