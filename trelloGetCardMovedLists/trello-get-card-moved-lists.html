@@ -7,6 +7,7 @@
       trello: {value: '', required: true, type: 'trelloCredentials'},
       idList: {value: '', required: false},
       idBoard: {value: '', required: false},
+      excludeUser: {value:false, required: true},
       name:{value:'', required: false}
     },
     inputs: 1,
@@ -116,6 +117,10 @@
       <label for="node-input-idBoard" data-i18n="trelloGetCardMovedLists.label.selectBoardID"></label>
       <select id="node-input-idBoard" ><!--I shall be dynamically filling this-->
       </select>
+    </div>
+    <div class="form-row">
+      <label for="node-input-excludeUser" data-i18n="trelloGetCardMovedLists.label.excludeUserBoolean"></label>
+      <input id="node-input-excludeUser" type="checkbox"></input>
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="trelloGetCardMovedLists.label.name"></span></label>

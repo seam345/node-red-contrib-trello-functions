@@ -4,6 +4,7 @@
     "label": {
       "selectBoardID": "Board ID",
       "trelloCredentials": "Trello",
+      "excludeUserBoolean": "Exclude self created",
       "name": "Name"
     },
     "hint": {
