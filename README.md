@@ -15,11 +15,15 @@ Outputs a Trello card for every new card added  as msg.payload.
 
 Output is time bounded between the previous and current activation.
 
+Boolean option to exclude any actions performed by the owner of the API key.
+
 * ### Assigned to Trello card
 
 Outputs a Trello card for every card the Trello user is assigned to as msg.payload.
 
 Output is time bounded between the previous and current activation.
+
+Boolean option to exclude any actions performed by the owner of the API key.
 
 * ### Get card moved lists
 
@@ -27,10 +31,12 @@ Outputs a Trello card that has moved Trello list as msg.payload.
 
 Output is time bounded between the previous and current activation.
 
-### Exclude self
+Boolean option to exclude any actions performed by the owner of the API key.
 
-All nodes have a boolean option to exclude any actions performed by the owner of 
-the API key.
+* ### Create new Trello card
+
+Able to create an array of Trello cards based on input, with optional default values 
+available
 
 
 ## Current plans to implement
