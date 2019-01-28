@@ -1,0 +1,26 @@
+{
+  "trelloCreateNewCard": {
+    "nodeName": "create new card",
+    "label": {
+      "selectBoardID": "Board ID",
+      "selectListID": "List ID",
+      "name": "Node Name",
+      "cardName": "Card name",
+      "cardDescription": "Description",
+      "cardPosition": "Position",
+      "cardDue": "Due date",
+      "cardDueComplete": "Due complete",
+      "cardIdMembers": "ID Members list",
+      "cardIdLabels": "ID labels list",
+      "cardUrlSource": "Attach url link"
+    },
+    "hint": {
+      "noTrelloCredentials": "Please select Trello credentials first",
+      "boardListLoading": "Loading Boards...",
+      "boardListUnselected": "Select a Board to narrow list results",
+      "listListBoardUnselected": "Please select a board first",
+      "listListLoading": "Loading Lists...",
+      "listListUnselected": "Select a List to narrow results"
+    }
+  }
+}

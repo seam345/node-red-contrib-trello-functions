@@ -1,0 +1,144 @@
+<script type="text/x-red" data-help-name="trelloCreateNewCard">
+  <p>Creates a new card in Trello for every item in msg.payload.newCardsToAdd[].</p>
+  <p>Default card details can be set in node properties, these details can be overridden by declaring a value in the
+  newCardToAdd object <br/>
+  e.g. default list id = 5 and
+
+  <!--bellow preserves whitespace to make it a little easier to see the structure when on node red but requires no
+  additional tabs-->
+<pre><code>msg.payload.newCardsToAdd
+[
+  {"name":"card1"},
+  {"name":"card2","idList":"1"}
+]</code></pre>
+
+  This will create 2 cards the first one "card1" will be added to list 5 using the default list value, the second will
+  be added to list 1 overriding the default list value. <br/>
+
+  The naming of the keys to override defaults are the same in the
+  <a href="https://developers.trello.com/reference/#cards-2">Trello api method</a> this list is included in the inputs
+  and each key is noted in the property definition that will be overridden.
+
+
+  <h3>Input</h3>
+    <dl class="message-properties">
+      <dt class="optional">payload.cardsToAdd[]<span class="property-type">Array</span></dt>
+      <dd>
+        An array of cards to add to Trello. Currently non of these are validated in anyway if the key exist (and isn't empty) its
+        value replaces the default value and gets sent.<br/>
+        cardToAdd:
+        <ul>
+          <li><code>name</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - The name for the card</li>
+          <li><code>desc</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - The description for the card</li>
+          <li><code>pos</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - The position of the new card. <code>top</code>, <code>bottom</code>, or a positive float</li>
+          <li><code>due</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - A due date for the card</li>
+          <li><code>dueComplete</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">Boolean</span> - Flags if the due date is complete or not.</li>
+          <li><code>idList</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - The ID of the list the card should be created in</li>
+          <li><code>idMembers</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - Comma-separated list of member IDs to add to the card</li>
+          <li><code>idLabels</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - Comma-separated list of label IDs to add to the card</li>
+          <li><code>urlSource</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - A URL starting with <code>http://</code> or <code>https://</code></li>
+          <li><code>fileSource</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - </li>
+          <li><code>idCardSource</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - The ID of a card to copy into the new card</li>
+          <li><code>keepFromSource</code> <span style="font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;color: #666;font-style: italic;font-size: 11px;">String</span> - If using <code>idCardSource</code> you can specify which properties to copy over. all or comma-separated list of: <code>attachments,checklists,comments,due,labels,members,stickers</code></li>
+        </ul>
+      </dd>
+    </dl>
+  <h3>Output</h3>
+    The outputted message will be the same as the inputted message allowing you to pass data through the node.<br/>
+    It does however add/override 3 properties on each newCardsToAdd object see below.
+    <dl class="message-properties">
+      <dt>sentParameters <span class="property-type">Object</span></dt>
+      <dd> A simple object containing all the key/value pairs sent to the api to create this card.</dd>
+      <dt>error <span class="property-type">Boolean</span></dt>
+      <dd>False if no error occurred True if error occurred with api call.</dd>
+      <dt>response <span class="property-type">Object</span></dt>
+      <dd>
+        Contains the data received back from the api call;<br/>
+        if no error occurred it should be a card object of the card created,<br/>
+        if an error did occur this will contain the error message.
+      </dd>
+    </dl>
+    <h3>Properties</h3>
+    <dl class="message-properties">
+        <dt>Credentials <span class="property-type">Required</span></dt>
+        <dd>Trello credentials</dd>
+
+        <dt>Board ID <span class="property-type">Optional</span></dt>
+        <dd>Here solely to help narrow the results of lists to select</dd>
+
+        <dt>List ID <span class="property-type">Optional</span></dt>
+        <dd>
+          The ID of the list the card should be created in.<br/>
+          This is the only required parameter by the api if no default is set make sure to set it as a
+          newCardsToAdd property otherwise the api will error out.<br/>
+          Override with <code>idList</code> <code>newCardsToAdd[].idList</code>
+        </dd>
+
+        <dt>Name <span class="property-type">Optional</span></dt>
+        <dd>
+          The name for the card.<br/>
+          Override with <code>name</code> <code>newCardsToAdd[].name</code>
+        </dd>
+
+        <dt>Description<span class="property-type">Optional</span></dt>
+        <dd>
+          The description for the card.<br/>
+          Override with <code>desc</code> <code>newCardsToAdd[].desc</code>
+        </dd>
+
+        <dt>Position <span class="property-type">Optional</span></dt>
+        <dd>
+          The position of the new card. top, bottom, or a positive float.
+          Left blank and it will default to the top of the list.<br/>
+          The number isn't simply just incrementing, see
+          <a href="https://stackoverflow.com/questions/14446859/what-does-the-pos-actually-mean-in-the-trello-api">this stack overflow question</a> for more information.<br/>
+          I am considering creating a method to allow for a more intuitive position value
+          <a href="https://github.com/seam345/node-red-contrib-trello-functions/issues/5">see github issue.</a><br/>
+          Override with <code>pos</code> <code>newCardsToAdd[].pos</code>
+        </dd>
+
+        <dt>Due<span class="property-type">Optional</span></dt>
+        <dd>
+          A due date for the card.<br/>
+          Override with <code>due</code> <code>newCardsToAdd[].due</code>
+        </dd>
+
+        <dt>Due Complete<span class="property-type">Optional</span></dt>
+        <dd>
+          Allows you to set the due date as complete.<br/>
+          Override with <code>dueComplete</code> <code>newCardsToAdd[].dueComplete</code>
+        </dd>
+
+        <dt>ID Members<span class="property-type">Optional</span></dt>
+        <dd>
+          Comma-separated list of member IDs to add to the card.<br/>
+          Override with <code>idMembers</code> <code>newCardsToAdd[].idMembers</code>
+        </dd>
+
+        <dt>ID Labels<span class="property-type">Optional</span></dt>
+        <dd>
+          Comma-separated list of label IDs to add to the card.<br/>
+          Override with <code>idLabels</code> <code>newCardsToAdd[].idLabels</code>
+        </dd>
+
+        <dt>URL Source<span class="property-type">Optional</span></dt>
+        <dd>
+          A URL starting with <code>http://</code> or <code>https://</code>.<br/>
+          Override with <code>urlSource</code> <code>newCardsToAdd[].urlSource</code>
+        </dd>
+
+
+    </dl>
+
+  <h3>Details</h3>
+    <p>All newCard API parameters are case sensitive, in the camel case format</p>
+    <p>A link to the <a href="https://developers.trello.com/reference/#cards-2">Api method called </a>to create the card.</p>
+    <p>You may have noticed the 3 addtional inputs that can't set default parameters to <code>fileSource</code>
+      <code>idCardSource</code> <code>keepFromSource</code>. These are valid API keys and will be passed to the api if
+      they exist on <code>cardsToAdd</code>. I was just personally unsure how to implement them and may never use them so
+      left them out of the defaults. However, feel free to submit it as a issue in
+      <a href="https://github.com/seam345/node-red-contrib-trello-functions">github</a>
+      and I shall look into implementing it if I know its going to be used.
+    </p>
+
+</script>

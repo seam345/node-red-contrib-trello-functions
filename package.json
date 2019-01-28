@@ -19,7 +19,8 @@
       "trelloCredentials": "trelloCredentials/trello-credentials.js",
       "trelloGetNewCard": "trelloGetNewCard/trello-get-new-card.js",
       "trelloGetCardMovedLists": "trelloGetCardMovedLists/trello-get-card-moved-lists.js",
-      "trelloAssignedToCard": "trelloAssignedToCard/trello-assigned-to-card.js"
+      "trelloAssignedToCard": "trelloAssignedToCard/trello-assigned-to-card.js",
+      "trelloCreateNewCard": "trelloCreateNewCard/trello-create-new-card.js"
     }
   },
   "repository": {
