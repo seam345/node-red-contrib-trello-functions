@@ -1,0 +1,33 @@
+<script type="text/x-red" data-help-name="trelloGetCardMovedToList">
+    <p>Get card moved to list retrieves any card moved to a "set" list since it was last called. </br>This will output a payload for every
+    moved card eg 5 cards moved to set list 5 msg.payload</p>
+
+
+
+      <h3>Output</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a></dd>
+      </dl>
+      <h3>Input</h3>
+      <dl class="message-properties">
+        <dt>payload.initialTimeStamp <span class="property-type">number</span></dt>
+        <dd>A optional time stamp parsable by "new Date()",
+          any card moved after this timestamp will be outputted on the initial run.</br>
+          <b>Note</b>: if for any reason the node loses its context variable, the next run will reuse this variable as a
+           start time potentially causing unwanted duplication. Every deployment will clear the context variables.</dd>
+      </dl>
+      <h3>Properties</h3>
+      <dl class="message-properties">
+          <dt>Credentials <span class="property-type">Required</span></dt>
+          <dd>Trello credentials</dd>
+          <dt>Board ID <span class="property-type">Required</span></dt>
+          <dd>Used to narrow down the list options.</dd>
+          <dt>List ID <span class="property-type">Required</span></dt>
+          <dd>Specifies the set list.</dd>
+          <dt>Exclude self created <span class="property-type">Required</span></dt>
+          <dd>If ticked the node will exclude cards moved by the owner of the API key.</dd>
+      </dl>
+
+    <p>
+</script>
