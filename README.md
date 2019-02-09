@@ -33,6 +33,14 @@ Output is time bounded between the previous and current activation.
 
 Boolean option to exclude any actions performed by the owner of the API key.
 
+* ### Get card moved to list
+
+Outputs a Trello card that has moved to a specific Trello list as msg.payload.
+
+Output is time bounded between the previous and current activation.
+
+Boolean option to exclude any actions performed by the owner of the API key.
+
 * ### Create new Trello card
 
 Able to create an array of Trello cards based on input, with optional default values 
