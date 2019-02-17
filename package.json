@@ -22,7 +22,8 @@
       "trelloGetCardMovedLists": "trelloGetCardMovedLists/trello-get-card-moved-lists.js",
       "trelloGetCardMovedToList": "trelloGetCardMovedToList/trello-get-card-moved-to-list.js",
       "trelloAssignedToCard": "trelloAssignedToCard/trello-assigned-to-card.js",
-      "trelloCreateNewCard": "trelloCreateNewCard/trello-create-new-card.js"
+      "trelloCreateNewCard": "trelloCreateNewCard/trello-create-new-card.js",
+      "trelloAddLabelToCard": "trelloAddLabelToCard/trello-add-label-to-card.js"
     }
   },
   "repository": {
