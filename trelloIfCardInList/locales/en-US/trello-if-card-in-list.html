@@ -1,0 +1,33 @@
+<script type="text/x-red" data-help-name="trelloIfCardInList">
+    <p>Very simple helper that directs the card object to the first output if the card is in the specified list</p>
+    <p>This node is for simplicity of selecting the list from a drop down instead of finding the list ID from trello</p>
+
+      <h3>Output 1</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a>
+          If the card is in the list specified</dd>
+      </dl>
+      <h3>Output 2</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a>
+          If the card is <b>not</b> in the list specified</dd>
+      </dl>
+      <h3>Input</h3>
+      <dl class="message-properties">
+        <dt>payload <span class="property-type">Trello Card</span></dt>
+        <dd>A <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a></dd>
+      </dl>
+      <h3>Properties</h3>
+      <dl class="message-properties">
+          <dt>Credentials <span class="property-type">Optional</span></dt>
+          <dd>Trello credentials, used to load board list and list list</dd>
+          <dt>Board ID <span class="property-type">Optional</span></dt>
+          <dd>This will narrow the list selections</dd>
+          <dt>List ID <span class="property-type">Required</span></dt>
+          <dd>The ID that the card is compared against</dd>
+      </dl>
+
+    <p>
+</script>

@@ -17,6 +17,7 @@
   "node-red": {
     "nodes": {
       "trelloCredentials": "trelloCredentials/trello-credentials.js",
+      "trelloIfCardInList": "trelloIfCardInList/trello-if-card-in-list.js",
       "trelloGetNewCard": "trelloGetNewCard/trello-get-new-card.js",
       "trelloGetCardMovedLists": "trelloGetCardMovedLists/trello-get-card-moved-lists.js",
       "trelloGetCardMovedToList": "trelloGetCardMovedToList/trello-get-card-moved-to-list.js",
