@@ -44,7 +44,16 @@ Boolean option to exclude any actions performed by the owner of the API key.
 * ### Create new Trello card
 
 Able to create an array of Trello cards based on input, with optional default values 
-available
+available.
+
+* ### Add Label to Trello Card
+
+Adds a predefined label to a Trello card.
+
+* ### If card in list
+
+Simple helper by means of a drop down list select, with 2 outputs 1 for True the other 
+for False.
 
 
 ## Current plans to implement
