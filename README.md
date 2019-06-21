@@ -55,8 +55,13 @@ Adds a predefined label to a Trello card.
 Simple helper by means of a drop down list select, with 2 outputs 1 for True the other 
 for False.
 
+* ### Meaningful card position
+
+Simple helper that calculates an incremental positional value starting at 1 for the top card,
+also has a separate output if it is the top or bottom card.
+
 
 ## Current plans to implement
-* Create a moved to list node to fire whenever a card is moved to a particular list
+* Adding a whitelist/blacklist of users to allow filtering by users
 * Considering changing the nodes from function nodes to output nodes
 * Currently taking suggestions on other nodes.

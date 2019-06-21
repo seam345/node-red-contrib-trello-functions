@@ -1,0 +1,38 @@
+<script type="text/x-red" data-help-name="trelloMeaningfulCardPosition">
+    <p>Very simple helper that appends a meaningful position value to the card, also has 2 additional outputs used if a
+    card is at the top of the list or at the bottom.</p>
+    <p>This node is to create a much easier to work with card position, with 1 being the top card 2 being the card below
+    and so on. </p>
+
+      <h3>Output 1</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a>
+          If the card is in the <b>top</b> position on the list, with the added property <code>meaningfulPos</code>.</dd>
+      </dl>
+      <h3>Output 2</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a>
+          with the added property <code>meaningfulPos</code>.
+          This output will always output a card regardless of position, unlike output 1 & 3 which only output
+          if the card is at the top or bottom position.</dd>
+      </dl>
+      <h3>Output 3</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a>
+          If the card is in the <b>bottom</b> position on the list, with the added property <code>meaningfulPos</code>.</dd>
+      </dl>
+      <h3>Input</h3>
+      <dl class="message-properties">
+        <dt>payload <span class="property-type">Trello Card</span></dt>
+        <dd>A <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a></dd>
+      </dl>
+      <h3>Properties</h3>
+      <dl class="message-properties">
+          <dt>Credentials <span class="property-type">Optional</span></dt>
+          <dd>Trello credentials, used to load board list and list list</dd>
+      </dl>
+    <p>
+</script>
