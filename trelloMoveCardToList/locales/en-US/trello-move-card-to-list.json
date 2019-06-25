@@ -1,0 +1,18 @@
+{
+  "trelloMoveCardToList": {
+    "nodeName": "Move card to list",
+    "label": {
+      "selectBoardID": "Board ID",
+      "selectListID": "List ID",
+      "name": "Node Name"
+    },
+    "hint": {
+      "noTrelloCredentials": "Please select Trello credentials first",
+      "boardListLoading": "Loading Boards...",
+      "boardListUnselected": "Select a Board to narrow list results",
+      "listLabelBoardUnselected": "Please select a board first",
+      "listListLoading": "Loading Lists...",
+      "listListUnselected": "Select a List to narrow results"
+    }
+  }
+}

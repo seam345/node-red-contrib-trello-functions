@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-trello-functions",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "description": "A set of function nodes for trello api",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
       "trelloAssignedToCard": "trelloAssignedToCard/trello-assigned-to-card.js",
       "trelloCreateNewCard": "trelloCreateNewCard/trello-create-new-card.js",
       "trelloMeaningfulCardPosition": "trelloMeaningfulCardPosition/trello-meaningful-card-position.js",
+      "trelloMoveCardToList": "trelloMoveCardToList/trello-move-card-to-list.js",
       "trelloAddLabelToCard": "trelloAddLabelToCard/trello-add-label-to-card.js"
     }
   },

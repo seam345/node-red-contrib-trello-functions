@@ -50,6 +50,10 @@ available.
 
 Adds a predefined label to a Trello card.
 
+* ### Move card to list
+
+Moves a Trello card to a specified list.
+
 * ### If card in list
 
 Simple helper by means of a drop down list select, with 2 outputs 1 for True the other 
@@ -64,4 +68,5 @@ also has a separate output if it is the top or bottom card.
 ## Current plans to implement
 * Adding a whitelist/blacklist of users to allow filtering by users
 * Considering changing the nodes from function nodes to output nodes
-* Currently taking suggestions on other nodes.
+* Currently in active development taking suggestions on other nodes feel free to create an issue on 
+github or email me at sean@seanborg.tech.

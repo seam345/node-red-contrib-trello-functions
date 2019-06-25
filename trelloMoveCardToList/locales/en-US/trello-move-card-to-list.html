@@ -1,0 +1,29 @@
+<script type="text/x-red" data-help-name="trelloMoveCardToList">
+  <p>A simple node that will move a card to a specified list</p>
+
+  <h3>Output 1</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">Json</span></dt>
+    <dd>An updated <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a></dd>
+  </dl>
+  <h3>Output 2</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">String</span></dt>
+    <dd>The error response from the api</dd>
+  </dl>
+  <h3>Input</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">Trello Card</span></dt>
+    <dd>A <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a></dd>
+  </dl>
+  <h3>Properties</h3>
+  <dl class="message-properties">
+    <dt>Credentials <span class="property-type">Optional</span></dt>
+    <dd>Trello credentials, used to load board list and label list</dd>
+    <dt>Board ID <span class="property-type">Optional</span></dt>
+    <dd>This will narrow the list selections</dd>
+    <dt>List ID <span class="property-type">Required</span></dt>
+    <dd>The ID that the card is moved to</dd>
+  </dl>
+
+</script>
