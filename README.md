@@ -41,6 +41,13 @@ Output is time bounded between the previous and current activation.
 
 Boolean option to exclude any actions performed by the owner of the API key.
 
+* ### Get list
+
+Outputs all cards in a Trello list.
+
+I plan to add [query params](https://developers.trello.com/reference-link/cards-nested-resource) 
+in a future update.
+
 * ### Create new Trello card
 
 Able to create an array of Trello cards based on input, with optional default values 
@@ -67,6 +74,5 @@ also has a separate output if it is the top or bottom card.
 
 ## Current plans to implement
 * Adding a whitelist/blacklist of users to allow filtering by users
-* Considering changing the nodes from function nodes to output nodes
 * Currently in active development taking suggestions on other nodes feel free to create an issue on 
 github or email me at sean@seanborg.tech.

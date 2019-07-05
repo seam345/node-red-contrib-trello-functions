@@ -1,0 +1,32 @@
+<script type="text/x-red" data-help-name="trelloGetList">
+    <p>Get all cards on a Trello list.</p>
+    <p>For consistency default output is 1 output for every card on the list e.g. 5 cards equals 5 outputs containing 1 card.
+    Select "Output all cards as array" to output all the Trello cards in one output as an array e.g. 5 cards equals 1
+    output containing an array of length 5.</p>
+
+      <h3>Output</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">Json</span></dt>
+          <dd>A single <a href="https://developers.trello.com/v1.0/reference#card-object">Trello card object</a>, for every
+          card on the list.If "Output all cards as array" there will be 1 output with an array of Trello cards</dd>
+      </dl>
+      <h3>Input</h3>
+      <dl class="message-properties">
+          <dt>payload <span class="property-type">any</span></dt>
+          <dd>Any input will trigger the node</dd>
+      </dl>
+      <h3>Properties</h3>
+      <dl class="message-properties">
+          <dt>Credentials <span class="property-type">Required</span></dt>
+          <dd>Trello credentials</dd>
+          <dt>Board ID <span class="property-type">Optional</span></dt>
+          <dd>Used to narrow the list options</dd>
+          <dt>List ID <span class="property-type">Required</span></dt>
+          <dd>This will be the list to retrieve</dd>
+          <dt>Output all cards as array <span class="property-type">Required</span></dt>
+          <dd>If ticked the output will change from 1 output per card in list, to 1 output containing an array of all
+          cards in the list.</dd>
+      </dl>
+
+    <p>
+</script>
