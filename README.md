@@ -15,7 +15,7 @@ Outputs a Trello card for every new card added  as msg.payload.
 
 Output is time bounded between the previous and current activation.
 
-Boolean option to exclude any actions performed by the owner of the API key.
+Safe/ Block list to exclude any actions performed by the certain users.
 
 * ### Assigned to Trello card
 
@@ -23,7 +23,7 @@ Outputs a Trello card for every card the Trello user is assigned to as msg.paylo
 
 Output is time bounded between the previous and current activation.
 
-Boolean option to exclude any actions performed by the owner of the API key.
+Safe/ Block list to exclude any actions performed by the certain users.
 
 * ### Get card moved lists
 
@@ -31,7 +31,7 @@ Outputs a Trello card that has moved Trello list as msg.payload.
 
 Output is time bounded between the previous and current activation.
 
-Boolean option to exclude any actions performed by the owner of the API key.
+Safe/ Block list to exclude any actions performed by the certain users.
 
 * ### Get card moved to list
 
@@ -39,7 +39,7 @@ Outputs a Trello card that has moved to a specific Trello list as msg.payload.
 
 Output is time bounded between the previous and current activation.
 
-Boolean option to exclude any actions performed by the owner of the API key.
+Safe/ Block list to exclude any actions performed by the certain users.
 
 * ### Get list
 
