@@ -8,6 +8,8 @@
       idList: {value: '', required: false},
       idBoard: {value: '', required: false},
       excludeUser: {value:false, required: true},
+      safeListBlockListUsers: {value: 'block', required: true},
+      filterUserList: {value:[], required: false},
       name:{value:'', required: false}
     },
     inputs: 1,
@@ -17,6 +19,10 @@
       return this.name || 'assigned To Card';
     },
     oneditprepare: function () {
+      function resizeRule(rule) {
+        const newWidth = rule.width();
+        rule.find('.red-ui-typedInput').typedInput("width",(newWidth-15)/2);
+      }
       const originalContext = this;
 
       function setupHooks(trelloID) {
@@ -110,6 +116,16 @@
                 listListFirstContainer.appendTo(listList);
               }
 
+              const membersURL = 'https://api.trello.com/1/boards/' + boardID + '/members?key=' + credentialNode.apikey + '&token=' + credentialNode.token;
+
+              $.get(membersURL, function (data, status) {
+                let container = $("#node-input-filterUserList-hints");
+                container.empty();
+
+                const text = $('<span>', {style: "color: grey; font-size: 11px"}).text('JSON dump of members on board \n' + JSON.stringify(data));
+                text.appendTo(container);
+              });
+
             });
           }
         } else { // No trello credentials fill both selection boxes with hints to select credentials
@@ -158,6 +174,58 @@
       }
 
       setupHooks();
+     const headerList = $("#node-input-filterUserList-container").css('min-height', '150px').css('min-width', '450px').editableList({
+        addItem: function (container, index, value) {
+          const row = $('<div/>').css({
+            overflow: 'hidden',
+            whiteSpace: 'nowrap'
+          }).appendTo(container);
+
+          const propertyName = $('<input/>', {class: "node-input-filterUserList-userID", type: "text"})
+            .appendTo(row);
+          console.log(propertyName[0]);
+          console.log(value);
+          if ('inputValue' in value) {
+            propertyName[0].value = value.inputValue;
+          }
+
+          // propertyName.typedInput('value', 'test');
+
+
+          resizeRule(container);
+        },
+        resizeItem: resizeRule,
+        removable: true
+      });
+      for (let i = 0; i < this.filterUserList.length; i++) {
+        headerList.editableList('addItem', {inputValue: this.filterUserList[i]});
+      }
+    },
+    oneditsave: function () {
+      const headers = $("#node-input-filterUserList-container").editableList('items');
+      const node = this;
+      node.filterUserList = [];
+      headers.each(function (i) {
+        const userRow = $(this);
+        const userID = userRow.find(".node-input-filterUserList-userID");
+        if (userID.length === 1) { // idk what to do if its not 1
+          const text = userID[0].value;
+          node.filterUserList.push(text);
+          console.log(JSON.stringify(node.filterUserList));
+
+        }
+      });
+    },
+    oneditresize: function (size) {
+      const rows = $("#dialog-form>div:not(.node-input-filterUserList-container-row)");
+      let height = size.height;
+      for (let i = 0; i < rows.size(); i++) {
+        height -= $(rows[i]).outerHeight(true);
+      }
+      const editorRow = $("#dialog-form>div.node-input-filterUserList-container-row");
+      height -= (parseInt(editorRow.css("marginTop")) + parseInt(editorRow.css("marginBottom")));
+
+      $("#node-input-filterUserList-container").editableList('height', height);
     },
 
     paletteLabel: 'assigned To Card'
@@ -178,6 +246,21 @@
       <label for="node-input-idList" data-i18n="trelloAssignedToCard.label.selectListID"></label>
       <select id="node-input-idList" >
       </select>
+    </div>
+    <div class="form-row">
+      <label for="node-input-safeListBlockListUsers" data-i18n="trelloAssignedToCard.label.safeBlockListSelect"></label>
+      <select id="node-input-safeListBlockListUsers" >
+          <option value="block">Block</option>
+          <option value="safe">Safe</option>
+      </select>
+    </div>
+    <div class="form-row" style="margin-bottom:0;">
+        <label><i class="fa fa-list"></i> <span data-i18n="trelloAssignedToCard.label.filterUserList"></span></label>
+    </div>
+    <div class="form-row node-input-filterUserList-container-row">
+      <ol id="node-input-filterUserList-container"></ol>
+    </div>
+    <div class="form-row " id="node-input-filterUserList-hints">
     </div>
     <div class="form-row">
       <label for="node-input-excludeUser" data-i18n="trelloAssignedToCard.label.excludeUserBoolean"></label>

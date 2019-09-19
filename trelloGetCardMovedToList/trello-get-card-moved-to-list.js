@@ -18,6 +18,8 @@ module.exports = function (RED) {
       const boardFetchesSaveString = 'boardFetches';
       const listId = config.idList;
       const boardId = config.idBoard;
+      const safeListBlockListUsers = config.safeListBlockListUsers;
+      const filterUserList = config.filterUserList;
       const excludeSelfCreated = config.excludeUser;
       let trelloCurrentUserID = '';
       try {
@@ -98,26 +100,48 @@ module.exports = function (RED) {
         for (let i = 0; i < actionData.length; i++) {
           if (actionData[i].data) {
             if (actionData[i].type === 'updateCard') {
-              // Bellow will test if excludeSelfCreated is set, if it wasn't it will just continue, if it was it will
-              // check that the user that created the card is not the user who's linked to (owns) the API key
-              if (!excludeSelfCreated || !(actionData[i].idMemberCreator === trelloCurrentUserID)) {
-                // Bellow looks for any action data that contains a listAfter and list before key signifying a card has been moved
-                if (actionData[i].data.listAfter && actionData[i].data.listBefore) {  // Is it best to just check for undefined?
-                  // Bellow checks if the list the card was moved to was the list specified by the user
-                  if (actionData[i].data.listAfter.id === listId) {
-                    trello.get('/1/cards/' + actionData[i].data.card.id, (err, data) => {
-                        if (err) {
-                          node.error(err)
-                        } else {
-                          node.send({payload: data});
+              if (checkSafeBlockList(actionData[i])) {
+                // Bellow will test if excludeSelfCreated is set, if it wasn't it will just continue, if it was it will
+                // check that the user that created the card is not the user who's linked to (owns) the API key
+                if (!excludeSelfCreated || !(actionData[i].idMemberCreator === trelloCurrentUserID)) {
+                  // Bellow looks for any action data that contains a listAfter and list before key signifying a card has been moved
+                  if (actionData[i].data.listAfter && actionData[i].data.listBefore) {  // Is it best to just check for undefined?
+                    // Bellow checks if the list the card was moved to was the list specified by the user
+                    if (actionData[i].data.listAfter.id === listId) {
+                      trello.get('/1/cards/' + actionData[i].data.card.id, (err, data) => {
+                          if (err) {
+                            node.error(err)
+                          } else {
+                            node.send({payload: data});
+                          }
                         }
-                      }
-                    );
+                      );
+                    }
                   }
                 }
               }
             }
           }
+        }
+      }
+
+      function checkSafeBlockList(action) {
+        if (safeListBlockListUsers === 'safe') {
+          for (let j = 0; j < filterUserList.length; j++) {
+            if (action.idMemberCreator === filterUserList[j]) {
+              return true;
+            }
+          }
+          return false;
+        } else {
+          let sendMessage = true;
+          for (let j = 0; j < filterUserList.length; j++) {
+            if (action.idMemberCreator === filterUserList[j]) {
+              sendMessage = false;
+              break;
+            }
+          }
+          return sendMessage;
         }
       }
 

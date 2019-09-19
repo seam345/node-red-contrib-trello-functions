@@ -23,8 +23,12 @@
           <dd>This will narrow the activation of node to only output cards created in the board provided</dd>
           <dt>List ID <span class="property-type">Optional</span></dt>
           <dd>This will narrow the activation of node to only output cards created in the list provided</dd>
+          <dt>Safe/Block list <span class="property-type">Required</span></dt>
+          <dd>Select if the user list is a used as a Safe list or Block list.</dd>
+          <dt>Filter users <span class="property-type">Required</span></dt>
+          <dd>List of user ID's to be used as the safe/block list. If a board is selected there is a JSON dump of the members on that board, this includes ID and username to make it easier to add ID's to the list</dd>
           <dt>Exclude self created <span class="property-type">Required</span></dt>
-          <dd>If ticked the node will exclude cards created by the owner of the API key.</dd>
+          <dd><b>To be depreciated on next major version update. Leave unticked to prevent any changes in behaviour when upgrading</b> If previously used the same can be achieved by adding your user ID to the filter users list and selecting Block list</dd>
       </dl>
 
     <p>

@@ -5,6 +5,8 @@
       "selectBoardID": "Board ID",
       "selectListID": "List ID",
       "excludeUserBoolean": "Exclude self created",
+      "safeBlockListSelect": "Set user list to Safe/Block",
+      "filterUserList": "Filter users list",
       "name": "Name"
     },
     "hint": {

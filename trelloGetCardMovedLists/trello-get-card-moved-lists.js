@@ -14,6 +14,8 @@ module.exports = function (RED) {
       const trelloCurrentUserIDSaveString = 'trelloUID';
       const lastFetchedSaveString = 'lastFetched';
       const boardFetchesSaveString = 'boardFetches';
+      const safeListBlockListUsers = config.safeListBlockListUsers;
+      const filterUserList = config.filterUserList;
       const trelloData = msg.trello || {};
       const boardId = trelloData.idBoard || config.idBoard;
       const excludeSelfCreated = config.excludeUser;
@@ -76,7 +78,7 @@ module.exports = function (RED) {
                   if (err) {
                     node.error(err)
                   } else {
-                    outputNewCardsAndSetLastFetched(data, lastFetched, triggeredDate);
+                    outputNewCards(data, lastFetched, triggeredDate);
                     setLastFetched(triggeredDate, boardId);
                     node.status({fill: "green", shape: "dot", text: triggeredDate.toISOString().substring(0, 19)});
                   }
@@ -101,7 +103,7 @@ module.exports = function (RED) {
                             if (err) {
                               node.error('Failed to retrieve board ' + data[i].name + ': ' + data[i].id + ' shall attempt to recover any missed card movements when next triggered')
                             } else {
-                              outputNewCardsAndSetLastFetched(data2, lastFetched, triggeredDate);
+                              outputNewCards(data2, lastFetched, triggeredDate);
                               setLastFetched(triggeredDate, data[i].id);
                               node.status({fill: "green", shape: "dot", text: triggeredDate.toISOString().substring(0, 19)});
                             }
@@ -117,27 +119,49 @@ module.exports = function (RED) {
         }
       }
 
-      function outputNewCardsAndSetLastFetched(actionData) {
+      function outputNewCards(actionData) {
         for (let i = 0; i < actionData.length; i++) {
           if (actionData[i].data) {
             if (actionData[i].type === 'updateCard') {
-              // Bellow will test if excludeSelfCreated is set, if it wasn't it will just continue, if it was it will
-              // check that the user that created the card is not the user who's linked to (owns) the API key
-              if (!excludeSelfCreated || !(actionData[i].idMemberCreator === trelloCurrentUserID)) {
-                // Bellow looks for any action data that contains a listAfter and list before key signifying a card has been moved
-                if (actionData[i].data.listAfter && actionData[i].data.listBefore) {  // Is it best to just check for undefined?
-                  trello.get('/1/cards/' + actionData[i].data.card.id, (err, data) => {
+              if (checkSafeBlockList(actionData[i])) {
+                // Bellow will test if excludeSelfCreated is set, if it wasn't it will just continue, if it was it will
+                // check that the user that created the card is not the user who's linked to (owns) the API key
+                if (!excludeSelfCreated || !(actionData[i].idMemberCreator === trelloCurrentUserID)) {
+                  // Bellow looks for any action data that contains a listAfter and list before key signifying a card has been moved
+                  if (actionData[i].data.listAfter && actionData[i].data.listBefore) {  // Is it best to just check for undefined?
+                    trello.get('/1/cards/' + actionData[i].data.card.id, (err, data) => {
                         if (err) {
                           node.error(err)
                         } else {
                           node.send({payload: data});
                         }
                       }
-                  );
+                    );
+                  }
                 }
               }
             }
           }
+        }
+      }
+
+      function checkSafeBlockList(action) {
+        if (safeListBlockListUsers === 'safe') {
+          for (let j = 0; j < filterUserList.length; j++) {
+            if (action.idMemberCreator === filterUserList[j]) {
+              return true;
+            }
+          }
+          return false;
+        } else {
+          let sendMessage = true;
+          for (let j = 0; j < filterUserList.length; j++) {
+            if (action.idMemberCreator === filterUserList[j]) {
+              sendMessage = false;
+              break;
+            }
+          }
+          return sendMessage;
         }
       }
 
