@@ -3,6 +3,7 @@ const Trello = require('node-trello');
 module.exports = function (RED) {
   function trelloGetCardMovedListsNode(config) {
     RED.nodes.createNode(this, config);
+    const filter = require('../common/filter')(RED);
     const node = this;
     const nodeContext = this.context();
 
@@ -75,43 +76,43 @@ module.exports = function (RED) {
 
           if (boardId) {
             trello.get('/1/boards/' + boardId + '/actions', {since: lastFetched}, (err, data) => {
-                  if (err) {
-                    node.error(err)
-                  } else {
-                    outputNewCards(data, lastFetched, triggeredDate);
-                    setLastFetched(triggeredDate, boardId);
-                    node.status({fill: "green", shape: "dot", text: triggeredDate.toISOString().substring(0, 19)});
-                  }
+                if (err) {
+                  node.error(err)
+                } else {
+                  outputNewCards(data, lastFetched, triggeredDate);
+                  setLastFetched(triggeredDate, boardId);
+                  node.status({fill: "green", shape: "dot", text: triggeredDate.toISOString().substring(0, 19)});
                 }
+              }
             );
           } else {
             trello.get('/1/members/me/boards', (err, data) => {
-                  if (err) {
-                    node.error(err)
-                  } else {
-                    for (let i = 0; i < data.length; i++) {
-                      let fetchDatetime = lastFetched;
-                      if (boardFetches && boardFetches[data[i].id]) {
-                        fetchDatetime = boardFetches[data[i].id];
-                        if (fetchDatetime !== lastFetched) {
-                          node.log('Attempting to recover any missed card movements from ' + data[i].name + ': ' + data[i].id + ' since ' + fetchDatetime)
+                if (err) {
+                  node.error(err)
+                } else {
+                  for (let i = 0; i < data.length; i++) {
+                    let fetchDatetime = lastFetched;
+                    if (boardFetches && boardFetches[data[i].id]) {
+                      fetchDatetime = boardFetches[data[i].id];
+                      if (fetchDatetime !== lastFetched) {
+                        node.log('Attempting to recover any missed card movements from ' + data[i].name + ': ' + data[i].id + ' since ' + fetchDatetime)
+                      }
+                    }
+
+
+                    trello.get('/1/boards/' + data[i].id + '/actions', {since: fetchDatetime}, (err, data2) => {
+                        if (err) {
+                          node.error('Failed to retrieve board ' + data[i].name + ': ' + data[i].id + ' shall attempt to recover any missed card movements when next triggered')
+                        } else {
+                          outputNewCards(data2, lastFetched, triggeredDate);
+                          setLastFetched(triggeredDate, data[i].id);
+                          node.status({fill: "green", shape: "dot", text: triggeredDate.toISOString().substring(0, 19)});
                         }
                       }
-
-
-                      trello.get('/1/boards/' + data[i].id + '/actions', {since: fetchDatetime}, (err, data2) => {
-                            if (err) {
-                              node.error('Failed to retrieve board ' + data[i].name + ': ' + data[i].id + ' shall attempt to recover any missed card movements when next triggered')
-                            } else {
-                              outputNewCards(data2, lastFetched, triggeredDate);
-                              setLastFetched(triggeredDate, data[i].id);
-                              node.status({fill: "green", shape: "dot", text: triggeredDate.toISOString().substring(0, 19)});
-                            }
-                          }
-                      );
-                    }
+                    );
                   }
                 }
+              }
             );
           }
         } else {
@@ -123,7 +124,7 @@ module.exports = function (RED) {
         for (let i = 0; i < actionData.length; i++) {
           if (actionData[i].data) {
             if (actionData[i].type === 'updateCard') {
-              if (checkSafeBlockList(actionData[i])) {
+              if (filter.checkSafeBlockList(actionData[i], filterUserList, safeListBlockListUsers === 'block')) {
                 // Bellow will test if excludeSelfCreated is set, if it wasn't it will just continue, if it was it will
                 // check that the user that created the card is not the user who's linked to (owns) the API key
                 if (!excludeSelfCreated || !(actionData[i].idMemberCreator === trelloCurrentUserID)) {
@@ -145,26 +146,6 @@ module.exports = function (RED) {
         }
       }
 
-      function checkSafeBlockList(action) {
-        if (safeListBlockListUsers === 'safe') {
-          for (let j = 0; j < filterUserList.length; j++) {
-            if (action.idMemberCreator === filterUserList[j]) {
-              return true;
-            }
-          }
-          return false;
-        } else {
-          let sendMessage = true;
-          for (let j = 0; j < filterUserList.length; j++) {
-            if (action.idMemberCreator === filterUserList[j]) {
-              sendMessage = false;
-              break;
-            }
-          }
-          return sendMessage;
-        }
-      }
-
       function setLastFetched(triggeredDate, boardID) {
         nodeContext.set(lastFetchedSaveString, triggeredDate.toISOString()); // Set to triggered time so we can be sure not to miss any
 
@@ -176,10 +157,7 @@ module.exports = function (RED) {
       }
 
 
-
       getTrelloCurrentUID();
-
-
 
 
     })
