@@ -183,6 +183,8 @@
             whiteSpace: 'nowrap'
           }).appendTo(container);
 
+          const labal = $('<label>User ID</label>', {value: "trelloGetCardMovedToList.label.selectBoardID"})
+            .appendTo(row);
           const propertyName = $('<input/>', {class: "node-input-filterUserList-userID", type: "text"})
             .appendTo(row);
           console.log(propertyName[0]);
