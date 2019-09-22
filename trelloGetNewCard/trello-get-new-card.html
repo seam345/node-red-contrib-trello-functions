@@ -176,7 +176,7 @@
       }
 
       setupHooks();
-
+      // todo i just noticed i forgot to rename headerList from copy paste, should be something more meaningful
       const headerList = $("#node-input-filterUserList-container").css('min-height', '150px').css('min-width', '450px').editableList({
         addItem: function (container, index, value) {
           const row = $('<div/>').css({
@@ -186,7 +186,7 @@
 
           const labal = $('<label>User ID</label>', {value: "trelloGetCardMovedToList.label.selectBoardID"})
             .appendTo(row);
-          
+
           const propertyName = $('<input/>', {class: "node-input-filterUserList-userID", type: "text"})
             .appendTo(row);
           console.log(propertyName[0]);
