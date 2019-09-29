@@ -36,66 +36,11 @@
           credentialNode = RED.nodes.node(originalContext.trello);
         }
 
+        const boardSelector = $('#node-input-idBoard').selectTrelloBoard({});
+
         if (credentialNode) {
           if (credentialNode.apikey && credentialNode.token) {
-            const url = 'https://api.trello.com/1/members/me/boards?key=' + credentialNode.apikey + '&token=' + credentialNode.token;
-            const boardList = $("#node-input-idBoard");
-            boardList.empty();
-
-
-            if (originalContext.idBoard) { // Just in case it is unable to load boards it will still display the ID from memory
-              const selectList = $("#node-input-idBoard");
-              selectList.empty();
-              const containerID = $('<option/>', {class: "node-input-option-node", value: originalContext.idBoard});
-              const textID = $('<span>', {class: "node-input-option-text"}).text(originalContext.idBoard);
-              textID.appendTo(containerID);
-              containerID.appendTo(selectList);
-            }
-            const containerFirst = $('<option/>', {class: "node-input-option-node", value: ''});
-            const text = $('<span>', {class: "node-input-option-text"}).text(originalContext._("trelloGetCardMovedLists.hint.boardListLoading"));
-            text.appendTo(containerFirst);
-            containerFirst.appendTo(boardList);
-
-
-            $.get(url, function (data, status) {
-              const boardListInsideGet = $("#node-input-idBoard");
-              boardListInsideGet.empty();
-              const containerFirst = $('<option/>', {class: "node-input-option-node", value: ''});
-              const text = $('<span>', {class: "node-input-option-text"}).text(originalContext._("trelloGetCardMovedLists.hint.boardListUnselected"));
-              text.appendTo(containerFirst);
-              containerFirst.appendTo(boardListInsideGet);
-
-              for (let i = 0; i < data.length; i++) {
-                let container = $('<option/>', {class: "node-input-option-node", value: data[i].id});
-
-                if (originalContext.idBoard === data[i].id) {
-                  container = $('<option/>', {class: "node-input-option-node", selected: "selected", value: data[i].id});
-                }
-                const textName = $('<span>', {class: "node-input-option-text"}).text(data[i].name + ": ");
-                const textID = $('<span>', {class: "node-input-option-text"}).text(data[i].id); // for some reason can't change the colour but it would be nice to make it a lighter colour then the name
-
-                textID.appendTo(textName);
-                textName.appendTo(container);
-                container.appendTo(boardListInsideGet);
-              }
-            });
-
-            $("#node-input-idBoard").change(function (e) {
-              const boardID = $(this).val(); // Gets the ID of the selected board
-              if (boardID !== '') {
-                const membersURL = 'https://api.trello.com/1/boards/' + boardID + '/members?key=' + credentialNode.apikey + '&token=' + credentialNode.token;
-
-                $.get(membersURL, function (data, status) {
-                  let container = $("#node-input-filterUserList-hints");
-                  container.empty();
-
-                  const text = $('<span>', {style: "color: grey; font-size: 11px"}).text('JSON dump of members on board \n' + JSON.stringify(data));
-                  text.appendTo(container);
-                });
-              }
-            });
-
-
+            boardSelector.selectTrelloBoard('setCredentials', credentialNode,originalContext.idBoard);
           }
         } else {
           const boardList = $("#node-input-idBoard");
