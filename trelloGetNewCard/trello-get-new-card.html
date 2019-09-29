@@ -63,8 +63,7 @@
             if (credentialsNode.apikey && credentialsNode.token) {
               boardSelector.empty();
 
-              boardList = $("#node-input-idBoard");
-              boardList.empty();
+              boardSelector.empty();
               // clear the list and add a placeholder to show it loading
               const boardListFirstConainer = $('<option/>', {class: "node-input-option-node", value: ''});
               // const boardListFirstText = $('<span>', {class: "node-input-option-text"}).text(originalContext._("trelloGetNewCard.hint.boardListLoading"));
