@@ -41,14 +41,20 @@
       // todo maybe in the future i can have all the string constants like, loading list and select to narrow, able to be set as options but since I don't have multiple languages atm I'm going to leave it till later
       $.widget("trelloFunctions.selectTrelloBoard", {
         _create: function () {
+          // const boardSelector = this.element;
+          //
+          // if (this.options.onSelect != null)
+          // {
+          //   //todo maybe do some function type check
+          //   let onSelectFunction = this.options.onSelect;
+          //   boardSelector.change(function (e){onSelectFunction(e)});
+          // }
+        },
+        setOnSelect: function (onSelectFunction)
+        {
           const boardSelector = this.element;
-
-          if (this.options.onSelect != null)
-          {
-            //todo maybe do some function type check
-            let onSelectFunction = this.options.onSelect;
-            boardSelector.change(function (e){onSelectFunction(e)});
-          }
+          boardSelector.change(function (e){onSelectFunction(e)});
+          console.log('set function');
         },
         setCredentials: function (credentialsNode, currentBoardID) {
           const boardSelector = this.element;
@@ -206,6 +212,8 @@
         rule.find('.red-ui-typedInput').typedInput("width",(newWidth-15)/2);
       }
       const originalContext = this;
+      const listSelector = $('#node-input-idList').selectTrelloList({});
+      const boardSelector = $('#node-input-idBoard').selectTrelloBoard({});
 
       function setupHooks(trelloID) {
         let boardList;
@@ -215,32 +223,33 @@
         } else {
           credentialNode = RED.nodes.node(originalContext.trello);
         }
-        const listSelector = $('#node-input-idList').selectTrelloList({});
-        const boardSelector = $('#node-input-idBoard').selectTrelloBoard({
-          onSelect: function (e) {
-            const board = $("#node-input-idBoard");
-            const boardID = $(board).val(); // Gets the ID of the selected board
 
-            listSelector.selectTrelloList('setBoard', credentialNode, boardID, originalContext.idList);
 
-            if (boardID !== '') {
-              const membersURL = 'https://api.trello.com/1/boards/' + boardID + '/members?key=' + credentialNode.apikey + '&token=' + credentialNode.token;
-
-              $.get(membersURL, function (data, status) {
-                let container = $("#node-input-filterUserList-hints");
-                container.empty();
-
-                const text = $('<span>', {style: "color: grey; font-size: 11px"}).text('JSON dump of members on board \n' + JSON.stringify(data));
-                text.appendTo(container);
-              });
-            }
-
-          }
-        });
 
         if (credentialNode) {
           if (credentialNode.apikey && credentialNode.token) {
             // todo make use od set credentialss
+            boardSelector.selectTrelloBoard('setOnSelect',
+              function (e) {
+                const board = $("#node-input-idBoard");
+                const boardID = $(board).val(); // Gets the ID of the selected board
+
+                listSelector.selectTrelloList('setBoard', credentialNode, boardID, originalContext.idList);
+
+                if (boardID !== '') {
+                  const membersURL = 'https://api.trello.com/1/boards/' + boardID + '/members?key=' + credentialNode.apikey + '&token=' + credentialNode.token;
+
+                  $.get(membersURL, function (data, status) {
+                    let container = $("#node-input-filterUserList-hints");
+                    container.empty();
+
+                    const text = $('<span>', {style: "color: grey; font-size: 11px"}).text('JSON dump of members on board \n' + JSON.stringify(data));
+                    text.appendTo(container);
+                  });
+                }
+
+              }
+            );
             boardSelector.selectTrelloBoard('setCredentials', credentialNode,originalContext.idBoard);
           }
         } else { // No trello credentials fill both selection boxes with hints to select credentials
