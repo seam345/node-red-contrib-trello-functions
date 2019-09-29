@@ -176,7 +176,7 @@
       }
 
       setupHooks();
-    const headerList = $("#node-input-filterUserList-container").css('min-height', '150px').css('min-width', '450px').editableList({
+    const userList = $("#node-input-filterUserList-container").css('min-height', '150px').css('min-width', '450px').editableList({
         addItem: function (container, index, value) {
           const row = $('<div/>').css({
             overflow: 'hidden',
@@ -202,7 +202,7 @@
         removable: true
       });
       for (let i = 0; i < this.filterUserList.length; i++) {
-        headerList.editableList('addItem', {inputValue: this.filterUserList[i]});
+        userList.editableList('addItem', {inputValue: this.filterUserList[i]});
       }
     },
     oneditsave: function () {
