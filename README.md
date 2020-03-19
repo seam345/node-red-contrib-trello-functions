@@ -71,6 +71,9 @@ for False.
 Simple helper that calculates an incremental positional value starting at 1 for the top card,
 also has a separate output if it is the top or bottom card.
 
+* ### Update card
+
+Updates the card in Trello after modifying it in node-red.
 
 ## Current plans to implement
 * Adding a whitelist/blacklist of users to allow filtering by users
