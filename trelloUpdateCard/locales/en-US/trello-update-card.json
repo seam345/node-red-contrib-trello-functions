@@ -1,0 +1,11 @@
+{
+  "trelloUpdateCard": {
+    "nodeName": "Update card",
+    "label": {
+      "name": "Node Name"
+    },
+    "hint": {
+      "noTrelloCredentials": "Please select Trello credentials first"
+    }
+  }
+}

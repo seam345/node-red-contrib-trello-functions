@@ -1,0 +1,55 @@
+<script type="text/javascript">
+
+  RED.nodes.registerType('trelloUpdateCard', {
+    category: 'Trello',
+    color: '#8BBDD9',
+    defaults: {
+      trello: { value: '', required: true, type: 'trelloCredentials' },
+      name: { value: '', required: false }
+    },
+    inputs: 1,
+    outputs: 2,
+    inputLabels: "Trello Card",
+    outputLabels: ["Success", "Error"],
+    icon: "trello.png",
+    label: function () {
+      return this.name || this._('trelloUpdateCard.nodeName');
+    },
+    paletteLabel: function () {
+      return this.name || this._('trelloUpdateCard.nodeName');
+    },
+    oneditprepare: function () {
+      const originalContext = this;
+
+      function setupHooks(trelloID) {
+        let credentialNode;
+        if (trelloID) {
+          credentialNode = RED.nodes.node(trelloID);
+        } else {
+          credentialNode = RED.nodes.node(originalContext.trello);
+        }
+      }
+
+
+      $("#node-input-trello").change(function (e) { // rerun if credentials changed
+        const trelloID = $(this).val();
+        setupHooks(trelloID);
+      });
+
+      setupHooks();
+    }
+  });
+</script>
+
+
+<script type="text/x-red" data-template-name="trelloUpdateCard">
+    <div class="form-row">
+      <label for="node-input-trello">Trello</label>
+      <input id="node-input-trello">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="trelloUpdateCard.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]trelloUpdateCard.nodeName">
+    </div>
+</script>
